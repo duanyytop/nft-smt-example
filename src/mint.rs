@@ -108,6 +108,10 @@ fn generate_mint_smt(
         .extend(merkel_proof_vec.iter().map(|v| Byte::from(*v)))
         .build();
 
+    println!("nft_keys: {:?}", nft_keys);
+    println!("nft_values: {:?}", nft_values);
+    println!("merkel_proof_vec: {:?}", merkel_proof_vec);
+
     let mint_entries = MintCompactNFTEntriesBuilder::default()
         .nft_keys(MintCompactNFTKeyVecBuilder::default().set(nft_keys).build())
         .nft_values(
