@@ -152,8 +152,6 @@ fn generate_withdrawal_smt(
         update_leaves.push((key, value));
     }
 
-    println!("owned_nft_keys: {:?}", owned_nft_keys);
-
     let root_hash = smt.root().clone();
 
     let withdrawal_merkle_proof = smt
@@ -186,16 +184,21 @@ fn generate_withdrawal_smt(
         )
         .withdrawal_nft_keys(
             CompactNFTKeyVecBuilder::default()
-                .set(withdrawal_nft_keys)
+                .set(withdrawal_nft_keys.clone())
                 .build(),
         )
         .withdrawal_nft_values(
             WithdrawCompactNFTValueVecBuilder::default()
-                .set(withdrawal_nft_values)
+                .set(withdrawal_nft_values.clone())
                 .build(),
         )
         .proof(merkel_proof_bytes)
         .build();
+
+    println!("withdrawal_nft_keys: {:?}", withdrawal_nft_keys.clone());
+    println!("withdrawal_nft_values: {:?}", withdrawal_nft_values);
+    println!("merkel_proof_vec: {:?}", merkel_proof_vec);
+    println!("root_hash: {:?}", root_hash);
 
     (
         root_hash,
